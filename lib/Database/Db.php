@@ -45,7 +45,7 @@ class Db extends Query
   }
 
   /**
-   * Update record in table
+   * Delete record in table
    * 
    * @param   string
    * @param   array

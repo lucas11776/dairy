@@ -26,12 +26,7 @@ $app->get('/single/{id}', function (Request $request, Response $response, array 
 
 // create item
 $app->get('/create', function (Request $request, Response $response, array $args) use ($db) {
-  return $response->withJson($db->create('articles', array(
-    'name'    => $args['name'],
-    'title'   => $args['title'],
-    'emotion' => $args['emotion'],
-    'text'    => $args['text']
-  ))) ? array('status' => true) : array('status' => false);
+  return $response->withJson($db->create('articles', $args)) ? array('status' => true) : array('status' => false);
 });
 
 // update item
