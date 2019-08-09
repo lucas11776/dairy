@@ -4,12 +4,20 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require 'vendor/autoload.php';
+require 'lib/autoload.php';
 
 $app = new \Slim\App;
+$db  = new \Database\Db;
+
+// cross-origin
+$app->add(function ($req, $res, $next) {
+  return $next($req, $res)->withHeader('Access-Control-Allow-Origin', '*');
+});
 
 // return all items in database
-$app->get('/', function (Request $request, Response $response, array $args) {
-  echo 'Home';
+$app->get('/', function (Request $request, Response $response, array $args) use ($db) {
+  $result = $db->get('articles');
+  return $response->withJson($result);
 });
 
 // get single item
