@@ -16,18 +16,22 @@ $app->add(function ($req, $res, $next) {
 
 // return all items in database
 $app->get('/', function (Request $request, Response $response, array $args) use ($db) {
-  $result = $db->get('articles');
-  return $response->withJson($result);
+  return $response->withJson($db->get('articles'));
 });
 
 // get single item
-$app->get('/single/{id}', function (Request $request, Response $response, array $args) {
-  echo 'Single';
+$app->get('/single/{id}', function (Request $request, Response $response, array $args) use ($db) {
+  return $response->withJson($db->get('articles', array('id' => $args['id'])));
 });
 
 // create item
-$app->get('/create', function (Request $request, Response $response, array $args) {
-  echo 'Create';
+$app->get('/create', function (Request $request, Response $response, array $args) use ($db) {
+  return $response->withJson($db->create('articles', array(
+    'name'    => $args['name'],
+    'title'   => $args['title'],
+    'emotion' => $args['emotion'],
+    'text'    => $args['text']
+  ))) ? array('status' => true) : array('status' => false);
 });
 
 // update item
