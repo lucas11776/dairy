@@ -62,6 +62,7 @@ class Validator extends Tools
     foreach ($this->validators as $key => $value)
     {
       $valid = $this->validate($key, explode(self::SPLIT_STR, $value));
+      if ($valid !== true) $this->error[$key] = $valid;
     }
     return count($this->error) === 0 ? true : false;
   }
@@ -69,11 +70,48 @@ class Validator extends Tools
   /**
    * Validation
    */
-  public function validate (string $key, array $validators)
+  protected function validate (string $key, array $validators)
   {
-    $value = json_encode($this->request->getParams(), true)[$keys] ?? '';
+    $val = 'themba'; //$this->request->getParams()[$key] ?? '';
+    $error = null; // validation error placeholder
 
-    echo $value . ' ';
+    for ($i = 0; $i < count($validators); $i++)
+    {
+      $single_validator = explode(self::SPLIT_VAL, $validators[$i]);
+      $swich = strtolower($single_validator[0]);
+
+      switch ($swich) {
+
+        case 'required':
+          if (!$error && $this->required($val)) $error = "The {$key} field is required";
+          break;
+
+        case 'min':
+          if (!$error && $this->min($val, $single_validator[1])) $error = "The {$key} most have min length " . $single_validator[1] . " .";
+          break;
+
+        case 'max':
+        if (!$error && $this->max($val, $single_validator[1])) $error = "The {$key} most have max length " . $single_validator[1] . " .";
+          break;
+
+        case 'integer':
+          if (!$error && $this->max($val, $single_validator[1])) $error = "The {$key} most have max length " . $single_validator[1] . " .";
+          break;
+      }
+    }
+
+    return $error === null ? true : $error;
+  }
+
+  /**
+   * Validation errors
+   * 
+   * @param   string
+   * @return  array
+   */
+  public function array_error(string $field = null)
+  {
+    return $field === null ? $this->error : ($this->error[$field] ?? '');
   }
 
   /**

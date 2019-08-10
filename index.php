@@ -29,9 +29,9 @@ $app->get('/api/single/{id}', function (Request $request, Response $response, ar
 $app->post('/api/create', function($request, $response, $args) {
   $validator = new \Validation\Validator($request); // post validation
   $validator->set_rules(
-    array('name' => 'required|min:3|max:30', 'title' => 'required|min:3|max:30','text'  => 'required|min:3|max:500')
+    array('name' => 'required|min:3|max:2', 'title' => 'required|min:3|max:30','text'  => 'required|min:3|max:500')
   );
-  if($validator->run() === false); //return $response->withJson($validator->error(array('status' => false))); 
+  if($validator->run() === false); return $response->withJson(array('status' => true, )); 
   //return $response->withJson($db->create('articles', $args)) ? array('status' => true) : array('status' => false);
 });
 
