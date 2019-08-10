@@ -28,7 +28,7 @@ class Db extends Query
    */
   public function get (string $table, array $where = null)
   {
-    return $this->_where($table, $where)->fetch(PDO::FETCH_ASSOC);
+    return $this->_where($table, $where)->fetchAll(PDO::FETCH_ASSOC);
   }
 
   /**
