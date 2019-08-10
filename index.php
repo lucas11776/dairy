@@ -13,7 +13,7 @@ $db  = new \Database\Db;
 $app->add(function ($req, $res, $next) {
   return $next($req, $res)->withHeader('Access-Control-Allow-Origin', '*')
                           ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-                          ->withHeader('Access-Control-Allow-Methods', 'GET, POST');
+                          ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
 });
 
 // return all items in database
@@ -26,19 +26,28 @@ $app->get('/api/single/{id}', function (Request $request, Response $response, ar
   return $response->withJson($db->get('articles', array('id' => $args['id'])));
 });
 
-// create item
-$app->get('/api/create', function (Request $request, Response $response, array $args) use ($db) {
-  return $response->withJson($db->create('articles', $args)) ? array('status' => true) : array('status' => false);
+$app->post('/api/create', function($request, $response, $args) {
+  $validator = new \Validation\Validator($request); // post validation
+  $validator->set_rules(
+    array('name' => 'required|min:3|max:30', 'title' => 'required|min:3|max:30','text'  => 'required|min:3|max:500')
+  );
+  if($validator->run() === false); //return $response->withJson($validator->error(array('status' => false))); 
+  //return $response->withJson($db->create('articles', $args)) ? array('status' => true) : array('status' => false);
 });
 
 // update item
-$app->get('/api/update', function (Request $request, Response $response, array $args) {
+$app->post('/api/update', function (Request $request, Response $response, array $args) {
   echo 'Update';
 });
 
 // Delete item
-$app->get('/api/delete', function (Request $request, Response $response, array $args) {
+$app->post('/api/delete', function (Request $request, Response $response, array $args) {
   echo 'Delete';
+});
+
+$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {
+  $handler = $this->notFoundHandler; // handle using the default Slim page not found handler
+  return $handler($req, $res);
 });
 
 $app->run();
