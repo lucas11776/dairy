@@ -72,14 +72,17 @@ class Validator extends Tools
    */
   protected function validate (string $key, array $validators)
   {
-    $val = 'themba'; //$this->request->getParams()[$key] ?? '';
-    $error = null; // validation error placeholder
+    // get param name by key
+    $val = $this->request->getParams()[$key] ?? '';
+    $error = null;
 
     for ($i = 0; $i < count($validators); $i++)
     {
+      // get validator type from string
       $single_validator = explode(self::SPLIT_VAL, $validators[$i]);
       $swich = strtolower($single_validator[0]);
 
+      // validation
       switch ($swich) {
 
         case 'required':
@@ -87,20 +90,57 @@ class Validator extends Tools
           break;
 
         case 'min':
-          if (!$error && $this->min($val, $single_validator[1])) $error = "The {$key} most have min length " . $single_validator[1] . " .";
+          if (!$error && $this->min($val, $single_validator[1])) $error = "The {$key} must have min length " . $single_validator[1] . " .";
           break;
 
         case 'max':
-        if (!$error && $this->max($val, $single_validator[1])) $error = "The {$key} most have max length " . $single_validator[1] . " .";
+          if (!$error && $this->max($val, $single_validator[1])) $error = "The {$key} must have max length " . $single_validator[1] . " .";
           break;
 
         case 'integer':
-          if (!$error && $this->max($val, $single_validator[1])) $error = "The {$key} most have max length " . $single_validator[1] . " .";
+          if (!$error && $this->integer($val)) $error = "The {$key} field must be type of integer.";
           break;
       }
     }
 
     return $error === null ? true : $error;
+  }
+
+  /**
+   * Api response
+   * 
+   * @param   boolean
+   * @param   string
+   * @param   array
+   * @return  array
+   */
+  public function response (bool $status = true, string $message = '', array $data = array())
+  {
+    return array('status' => $status, 'message' => $message, 'data' => $this->error);
+  }
+
+  /**
+   * Form validation response
+   * 
+   * @param   string
+   * @return  array
+   */
+  public function validation_response(string $message = '')
+  {
+    return $this->response((count($this->error) === 0 ? true : false), $message, $this->error);
+  }
+
+  /**
+   * Get request params
+   * 
+   * @param  array
+   * @return array
+   */
+  public function values (array $select)
+  {
+    $array = array();
+    for ($i = 0; $i < count($select); $i++) $array[$select[$i]] = $this->request->getParams()[$select[$i]] ?? null;
+    return $array;
   }
 
   /**

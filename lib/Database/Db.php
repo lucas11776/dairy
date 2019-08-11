@@ -26,9 +26,9 @@ class Db extends Query
    * @param   array
    * @return  boolean
    */
-  public function get (string $table, array $where = null)
+  public function get (string $table, array $where = null, int $limit = null)
   {
-    return $this->_where($table, $where)->fetchAll(PDO::FETCH_ASSOC);
+    return $this->_where($table, $where, $limit)->fetchAll(PDO::FETCH_ASSOC);
   }
 
   /**
@@ -42,6 +42,17 @@ class Db extends Query
   public function update (string $table, array $where, array $data)
   {
     return $this->_update($table, $where, $data);
+  }
+
+  /**
+   * Count number of records in database
+   * 
+   * @param   string
+   * @return  boolean
+   */
+  public function count(string $table, array $where = null)
+  {
+    return $this->_count($table, $where)->fetch(PDO::FETCH_ASSOC);
   }
 
   /**

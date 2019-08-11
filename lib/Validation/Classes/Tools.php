@@ -23,7 +23,7 @@ class Tools
    */
   public function integer (string $int)
   {
-    return is_integer($int) ? true : false;
+    return is_numeric($int) ? false : true;
   }
 
   /**

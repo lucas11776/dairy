@@ -25,7 +25,9 @@ class Query extends Connection
    */
   public function _insert (string $table, array $data)
   {
-    return $this->db_conn->query("INSERT INTO {$table} (" . implode(',', array_keys($data)) . ") VALUES (" . $this->array_values_string($data) . ");");
+    return $this->db_conn->query(
+      "INSERT INTO {$table} (" . implode(',', array_keys($data)) . ") VALUES (" . $this->array_values_string($data) . ");"
+    );
   }
 
   /**
@@ -35,9 +37,23 @@ class Query extends Connection
    * @param   array
    * @return  array
    */
-  public function _where (string $table, array $where = null)
+  public function _where (string $table, array $where = null, int $limit = null)
   {
-    return $this->db_conn->query("SELECT * FROM {$table} WHERE " . ($where === null ? "1" : $this->array_keys_values($where)));
+    return $this->db_conn->query(
+      "SELECT * FROM {$table} WHERE " . ($where === null ? "1" : $this->array_keys_values($where)) . "  ORDER BY `id` DESC " . ($limit === null ? "" : " LIMIT {$limit};") . ""
+    );
+  }
+
+  /**
+   * Count number records in table
+   * 
+   * @param   string
+   * @param   array
+   * @return  array
+   */
+  public function _count(string $table, array $where = null)
+  {
+    return $this->db_conn->query("SELECT COUNT(*) AS count FROM {$table} WHERE " . ($where === null ? "1" : $this->array_keys_values($where)));
   }
 
   /**
@@ -50,7 +66,9 @@ class Query extends Connection
    */
   public function _update (string $table, array $where, array $data)
   {
-    return $this->db_conn->query("UPDATE {$table} SET " . $this->array_keys_values($data) . " WHERE " . $this->array_keys_values($where) . ";");
+    return $this->db_conn->query(
+      "UPDATE {$table} SET " . $this->array_keys_values($data) . " WHERE " . $this->array_keys_values($where) . ";"
+    );
   }
 
   /**
@@ -62,7 +80,9 @@ class Query extends Connection
    */
   public function _delete (string $table, array $where)
   {
-    return $this->db_conn->query("DELETE FROM {$table} WHERE " . $this->array_keys_values($where) . ";");
+    return $this->db_conn->query(
+      "DELETE FROM {$table} WHERE " . $this->array_keys_values($where) . ";"
+    );
   }
 
   /**
