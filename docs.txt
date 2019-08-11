@@ -1,0 +1,2 @@
+# Database Creditials
+/lib/Database/classes/Connection.php

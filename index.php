@@ -1,8 +1,11 @@
 <?php
-
-// server error
-error_reporting(-1);
-ini_set('display_errors', 1);
+/**
+ * Setup error reporting (LIVE-SERVER)
+ *
+ * @// NOTE: in live serve error reporting must be set to run script
+ */
+// error_reporting(-1);
+// ini_set('display_errors', 1);
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
@@ -13,7 +16,7 @@ require 'lib/autoload.php';
 $app = new \Slim\App;
 $db  = new \Database\Db;
 
-// allow cross-origin 
+// allow cross-origin
 $app->add(function ($req, $res, $next) {
   return $next($req, $res)->withHeader('Access-Control-Allow-Origin', '*')
                           ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
@@ -24,14 +27,15 @@ $app->add(function ($req, $res, $next) {
  * @ROUTE (api)
  */
 $app->get('/api/', function (Request $request, Response $response, array $args) use ($db) {
-  // get number articles
+  // count number of article in database
   $number_articles = $db->count('articles');
   // get articles
   $articles = $db->get(
     'articles', null, $request->getParams()['limit'] ?? null
   );
   return $response->withJson(
-    array('total' => $number_articles['count'], 'articles' => $articles));
+    array('total' => $number_articles['count'], 'articles' => $articles)
+  );
 });
 
 /**

@@ -8,35 +8,35 @@ class Validator extends Tools
 {
   /**
    * Slim request object
-   * 
+   *
    * @var object
    */
   private $request;
 
   /**
    * Validation rules
-   * 
+   *
    * @var array
    */
   private $validators;
 
   /**
    * Validation errors
-   * 
+   *
    * @var array
    */
   private $error = array();
 
   /**
    * Validation (value) pair split char
-   *  
-   * @var string 
+   *
+   * @var string
    */
   private const SPLIT_STR = '|';
 
   /**
    * Validation (value) split char
-   * 
+   *
    * @var string
    */
   private const SPLIT_VAL = ':';
@@ -46,6 +46,12 @@ class Validator extends Tools
     $this->request = $request;
   }
 
+  /**
+   * Set validation rules
+   *
+   * @param   string
+   * @return  void
+   */
   public function set_rules (array $validators)
   {
     $this->validators = $validators;
@@ -53,8 +59,8 @@ class Validator extends Tools
 
   /**
    * Run validation rules
-   * 
-   * @return boolean
+   *
+   * @return  boolean
    */
   public function run()
   {
@@ -68,7 +74,11 @@ class Validator extends Tools
   }
 
   /**
-   * Validation
+   * Validate
+   *
+   * @param   string
+   * @param   array
+   * @return  boolean
    */
   protected function validate (string $key, array $validators)
   {
@@ -108,7 +118,7 @@ class Validator extends Tools
 
   /**
    * Api response
-   * 
+   *
    * @param   boolean
    * @param   string
    * @param   array
@@ -121,7 +131,7 @@ class Validator extends Tools
 
   /**
    * Form validation response
-   * 
+   *
    * @param   string
    * @return  array
    */
@@ -132,7 +142,7 @@ class Validator extends Tools
 
   /**
    * Get request params
-   * 
+   *
    * @param  array
    * @return array
    */
@@ -145,7 +155,7 @@ class Validator extends Tools
 
   /**
    * Validation errors
-   * 
+   *
    * @param   string
    * @return  array
    */

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2019 at 04:16 AM
+-- Generation Time: Aug 11, 2019 at 08:17 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -49,11 +49,13 @@ INSERT INTO `articles` (`id`, `date`, `name`, `title`, `text`) VALUES
 (6, '2019-08-11 02:02:39', 'Peter', 'Just sold my car today.', 'Sold my car for a new only calling ten three three one.'),
 (7, '2019-08-11 02:04:35', 'Jack', 'just killed the best joke of the day.', 'Come and hear the joke guess what the joke is the is no joke.'),
 (8, '2019-08-11 02:05:38', 'Lebo', 'Nice meeting with that thing.', 'Today just meant that thing your always like.'),
-(9, '2019-08-11 02:07:17', 'Themba', 'Did not sleep at all', 'Why did you not sleep because i was tired of sleep but to not to be tired your neeed to sleep.'),
+(9, '2019-08-11 02:07:17', 'Themba', 'All night long to December and Jan.', 'Why did you not sleep because i was tired of sleep but to not to be tired your neeed to sleep.'),
 (10, '2019-08-11 02:09:31', 'Banks', 'Someone that has to pay is sick.', 'Just found out Mrs bank is sick on holiday on holiday yes. '),
 (11, '2019-08-11 02:09:31', 'Peter Lazy', 'Today just seen a car go up to...', 'Today is haighway seen car going 320km/p that was super fast.'),
 (12, '2019-08-11 02:09:31', 'Percy', 'Feel like having a hair cut after sometime.', 'Need to get a hair cut to fix my hair for good this is super fun is not or is is to you.'),
-(13, '2019-08-11 02:09:31', 'Queen', 'Just feel like wearing nice dress.', 'Dressing out with my friends is the best come join where no where.');
+(14, '2019-08-11 05:21:00', 'James', 'Going to church Sunday', 'Seen a boy falling in the mirror of the door.'),
+(17, '2019-08-11 05:48:34', 'Themba Lucas Ngubeni', 'OLD TOWN ROAD', 'The funniest line in OLD TOWN ROAD is the man is faster then grassed bullet with hair oil.\nfast.'),
+(19, '2019-08-11 05:53:48', 'Themba Lucas Ngubeni', 'Final test post for my dairy (edited)', 'Final post of my dairy. (test edit last time)');
 
 --
 -- Indexes for dumped tables
@@ -73,7 +75,7 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

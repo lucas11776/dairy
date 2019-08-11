@@ -6,7 +6,7 @@ class Tools
 {
   /**
    * Check if string is not empty
-   * 
+   *
    * @param string
    * @return  boolean
    */
@@ -17,7 +17,7 @@ class Tools
 
   /**
    * Check if value is integer
-   * 
+   *
    * @param string
    * @return  boolean
    */
@@ -28,7 +28,7 @@ class Tools
 
   /**
    * Check if value is string
-   * 
+   *
    * @param string
    * @return  boolean
    */
@@ -39,10 +39,10 @@ class Tools
 
   /**
    * Check if string has required minimun length
-   * 
-   * @param  string
+   *
+   * @param   string
    * @param   integer
-   * @return
+   * @return  boolean
    */
   public function min (string $str, int $num)
   {
@@ -51,10 +51,10 @@ class Tools
 
   /**
    * Check if string has required maximum length
-   * 
-   * @param  string
+   *
+   * @param   string
    * @param   integer
-   * @return
+   * @return  boolean
    */
   public function max (string $str, int $num)
   {
